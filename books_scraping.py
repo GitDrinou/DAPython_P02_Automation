@@ -19,8 +19,9 @@ if status_code == 200:
     soup.prettify()
 
     title = soup.h1.string
-    number_availability = re.findall(r'\d+', availability.string)
-
+    availability = get_fields('Availability', 'th')
+    print(availability)
+    number_available = re.findall(r'\d+', availability)[0]
     links = soup.find('ul', class_='breadcrumb').find_all('li')
     category = links[-2].find('a').string
 
@@ -37,7 +38,7 @@ if status_code == 200:
         'title': title,
         'price_including_tax': get_fields('Price (incl. tax)', 'th'),
         'price_excluding_tax': get_fields('Price (excl. tax)', 'th'),
-        'number_available': get_fields('Availability', 'th'),
+        'number_available': number_available,
         'product_description':get_fields('product_description', '', True),
         'category': category,
         'review_rating': get_fields('Number of reviews', 'th'),
