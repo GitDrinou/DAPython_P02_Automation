@@ -20,7 +20,6 @@ if status_code == 200:
 
     title = soup.h1.string
     availability = get_fields('Availability', 'th')
-    print(availability)
     number_available = re.findall(r'\d+', availability)[0]
     links = soup.find('ul', class_='breadcrumb').find_all('li')
     category = links[-2].find('a').string
@@ -44,3 +43,5 @@ if status_code == 200:
         'review_rating': get_fields('Number of reviews', 'th'),
         'image_url': image_url,
     }
+else:
+    print('Failed to scrape, the product at: ' + str(scrap_url))
