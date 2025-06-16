@@ -1,22 +1,18 @@
-import requests
 import re
 from bs4 import BeautifulSoup
 
-scrap_url = 'https://books.toscrape.com/catalogue/sapiens-a-brief-history-of-humankind_996/index.html'
+def get_product_information(html, url):
+    """Generate a dictionary of product information."""
 
-r = requests.get(scrap_url)
-status_code = r.status_code
-
-def get_fields(name, tag = '', is_id = False):
-    if is_id:
-        return soup.find(id=name).find_next_sibling().string
-    else:
-        return soup.find(tag, string = name).find_next_sibling().string
-
-if status_code == 200:
-    print('Successfully scraped')
-    soup = BeautifulSoup(r.content, 'html.parser')
+    soup = BeautifulSoup(html, 'html.parser')
     soup.prettify()
+
+    def get_fields(name, tag='', is_id=False):
+        """Get the text for next sibling HTML element of selected tag or id"""
+        if is_id:
+            return soup.find(id=name).find_next_sibling().string
+        else:
+            return soup.find(tag, string=name).find_next_sibling().string
 
     title = soup.h1.string
     availability = get_fields('Availability', 'th')
@@ -31,17 +27,17 @@ if status_code == 200:
         if alternate_text is not None and alternate_text == title:
             image_url = image['src']
 
-    book = {
-        'product_page_url': scrap_url,
+    book_info = {
+        'product_page_url': url,
         'universal_product_code': get_fields('UPC', 'th'),
         'title': title,
         'price_including_tax': get_fields('Price (incl. tax)', 'th'),
         'price_excluding_tax': get_fields('Price (excl. tax)', 'th'),
         'number_available': number_available,
-        'product_description':get_fields('product_description', '', True),
+        'product_description': get_fields('product_description', '', True),
         'category': category,
         'review_rating': get_fields('Number of reviews', 'th'),
         'image_url': image_url,
     }
-else:
-    print('Failed to scrape, the product at: ' + str(scrap_url))
+
+    return book_info
