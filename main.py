@@ -1,31 +1,17 @@
-import csv
-from json.decoder import scanstring
 from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
 
+from csv_writer import write_file
 from scraping import get_product_information
-from datetime import datetime
 
 is_category = False
-current_date = datetime.now().strftime("%Y%m%d_%H%M%S")
 books_url = []
 data = []
-headers = ['product_page_url','universal_product_code','title','price_including_tax','price_excluding_tax',
-           'number_available','product_description','category','review_rating','image_url']
 
 # TODO: change to a Prompt user
-scrap_url = 'https://books.toscrape.com/catalogue/category/books/mystery_3/'
-
-
-def write_file(data):
-    # extract to csv in a new file function
-    with open('extract/extract_one_product_'+ current_date +'.csv', 'w', newline='', encoding='utf-8') as file:
-        writer = csv.DictWriter(file, delimiter=',',fieldnames=headers)
-        writer.writeheader()
-        writer.writerows(data)
-
+scrap_url = 'https://books.toscrape.com/catalogue/tipping-the-velvet_999/'
 
 while scrap_url:
     for item in scrap_url.split('/'):
@@ -60,7 +46,7 @@ while scrap_url:
         status_code = response.status_code
 
         if status_code == 200:
-            data = [get_product_information(r.content, scrap_url)]
+            data = [get_product_information(response.content, scrap_url)]
             print('Successfully scraped')
             scrap_url = None
         else:
@@ -76,4 +62,4 @@ for book in books_url:
         print('Failed to scrap the page')
 
 if len(data) > 0:
-    write_file(data)
+    write_file(data, is_category)
