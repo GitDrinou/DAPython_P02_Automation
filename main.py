@@ -9,9 +9,10 @@ from scraping import get_product_information
 is_category = False
 books_url = []
 data = []
+i = 0
 
 # TODO: change to a Prompt user
-scrap_url = 'https://books.toscrape.com/catalogue/tipping-the-velvet_999/'
+scrap_url = 'https://books.toscrape.com/catalogue/category/books/mystery_3/'
 
 while scrap_url:
     for item in scrap_url.split('/'):
@@ -47,19 +48,24 @@ while scrap_url:
 
         if status_code == 200:
             data = [get_product_information(response.content, scrap_url)]
-            print('Successfully scraped')
             scrap_url = None
         else:
             print('Failed to scrape the page at: ' + scrap_url)
             scrap_url = None
 
+print('Loading...')
 for book in books_url:
     url = urljoin('https://books.toscrape.com/catalogue/', book)
     response = requests.get(url)
+
+    print('*', end='', flush=True)
     if response.status_code == 200:
         data.append(get_product_information(response.content, url))
+        i += 1
     else:
         print('Failed to scrap the page')
 
+
 if len(data) > 0:
     write_file(data, is_category)
+    print('\nSuccessfully saved the data')
