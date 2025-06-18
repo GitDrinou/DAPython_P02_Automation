@@ -19,7 +19,9 @@ def get_product_information(html, url):
     def get_fields(name, tag='', is_id=False):
         """Get the text for next sibling HTML element of selected tag or id"""
         if is_id:
-            return soup.find(id=name).find_next_sibling().string
+            if soup.find(id=name) is not None:
+                return soup.find(id=name).find_next_sibling().string
+            return ''
         else:
             return soup.find(tag, string=name).find_next_sibling().string
 

@@ -2,7 +2,7 @@ import csv
 
 from datetime import datetime
 
-def write_file(datalist, is_category=False):
+def write_file(datalist, is_category=False, is_all_product=False):
 
     current_date = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -11,6 +11,8 @@ def write_file(datalist, is_category=False):
 
     if is_category:
         file_name = 'extract/extract_category_'+ current_date +'.csv'
+    elif is_all_product:
+        file_name = 'extract/extract_all_products_'+ current_date +'.csv'
     else:
         file_name = 'extract/extract_one_product_'+ current_date + '.csv'
 
