@@ -1,7 +1,8 @@
-import requests
+import pandas as pd
+
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-from csv_writer import write_file
+from csv_writer import write_file, write_category_file
 from scraping import get_product_information, get_html
 
 is_category = False
@@ -68,3 +69,8 @@ for book in books_url:
 if len(data) > 0:
     write_file(data, is_category, is_all_product)
     print('\nSuccessfully saved the data')
+
+# export products by categories
+if is_all_product:
+    all_products_file = pd.read_csv('extract/extract_all_products.csv')
+    write_category_file(all_products_file)

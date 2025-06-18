@@ -1,18 +1,20 @@
 import csv
+import re
 
 from datetime import datetime
+from soupsieve.util import lower
+
+current_date = datetime.now().strftime("%Y%m%d_%H%M%S")
 
 def write_file(datalist, is_category=False, is_all_product=False):
-
-    current_date = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     headers = ['product_page_url', 'universal_product_code', 'title', 'price_including_tax', 'price_excluding_tax',
                'number_available', 'product_description', 'category', 'review_rating', 'image_url']
 
     if is_category:
-        file_name = 'extract/extract_category_'+ current_date +'.csv'
+        file_name = 'extract/extract_one_category_'+ current_date +'.csv'
     elif is_all_product:
-        file_name = 'extract/extract_all_products_'+ current_date +'.csv'
+        file_name = 'extract/extract_all_products.csv'
     else:
         file_name = 'extract/extract_one_product_'+ current_date + '.csv'
 
@@ -20,3 +22,12 @@ def write_file(datalist, is_category=False, is_all_product=False):
         writer = csv.DictWriter(file, delimiter=',',fieldnames=headers)
         writer.writeheader()
         writer.writerows(datalist)
+
+def write_category_file(file):
+    if 'category' not in file.columns:
+        print('No category found')
+
+    for cat in file['category'].unique():
+        df_category = file[file['category'] == cat]
+        file_name = f'extract/by_category/{re.sub(" ", "_", lower(cat))}_{current_date}.csv'
+        df_category.to_csv(file_name, index=False)
