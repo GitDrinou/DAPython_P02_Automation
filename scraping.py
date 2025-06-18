@@ -1,9 +1,18 @@
 import re
+
+import requests
 from bs4 import BeautifulSoup
+
+def get_html(page_url):
+    """Get html from url"""
+    r = requests.get(page_url)
+    if r.status_code == 200:
+         return r.content
+    else:
+        return print('Failed to scrap the page')
 
 def get_product_information(html, url):
     """Generate a dictionary of product information."""
-
     soup = BeautifulSoup(html, 'html.parser')
     soup.prettify()
 
