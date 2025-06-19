@@ -6,7 +6,7 @@ from soupsieve.util import lower
 
 current_date = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-def write_file(datalist, is_category=False, is_all_product=False):
+def generate_file(datalist, is_category=False, is_all_product=False):
 
     headers = ['product_page_url', 'universal_product_code', 'title', 'price_including_tax', 'price_excluding_tax',
                'number_available', 'product_description', 'category', 'review_rating', 'image_url']
@@ -23,11 +23,12 @@ def write_file(datalist, is_category=False, is_all_product=False):
         writer.writeheader()
         writer.writerows(datalist)
 
-def write_category_file(file):
-    if 'category' not in file.columns:
+def generate_all_category_files(df):
+    if 'category' not in df.columns:
         print('No category found')
 
-    for cat in file['category'].unique():
-        df_category = file[file['category'] == cat]
-        file_name = f'extract/by_category/{re.sub(" ", "_", lower(cat))}_{current_date}.csv'
-        df_category.to_csv(file_name, index=False)
+    for category_name in df['category'].unique():
+        category = df[df['category'] == category_name]
+        prefix = re.sub(" ", "_", lower(category_name))
+        file_name = f'extract/by_category/{prefix}_{current_date}.csv'
+        category.to_csv(file_name, index=False)
