@@ -12,7 +12,7 @@ data = []
 i = 0
 
 # TODO: change to a Prompt user
-scrapped_url = 'https://books.toscrape.com'
+scrapped_url = 'https://books.toscrape.com/catalogue/the-long-shadow-of-small-ghosts-murder-and-memory-in-an-american-city_848/'
 base_product_url = 'https://books.toscrape.com/'
 
 print('Loading...')
@@ -59,7 +59,7 @@ for book in books_url:
             url = urljoin(base_product_url+'catalogue/', book)
 
     html = get_html(url)
-    data.append(get_product_information(html, url))
+    data.append(get_product_information(html, url, base_product_url))
     i += 1
     print(f'Scraping...{i} of {len(books_url)}', end='\r', flush=True)
 

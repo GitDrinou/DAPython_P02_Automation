@@ -11,7 +11,7 @@ def get_html(page_url):
     else:
         return print('Failed to scrap the page')
 
-def get_product_information(html, url):
+def get_product_information(html, url, base_url):
     """Generate a dictionary of product information."""
     soup = BeautifulSoup(html, 'html.parser')
     soup.prettify()
@@ -36,7 +36,7 @@ def get_product_information(html, url):
     for image in images:
         alternate_text = image.attrs['alt']
         if alternate_text is not None and alternate_text == title:
-            image_url = image['src']
+            image_url = base_url + image['src'].split('../../')[-1]
 
     book_info = {
         'product_page_url': url,
