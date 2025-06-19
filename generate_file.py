@@ -1,5 +1,6 @@
 import csv
 import re
+import urllib.request
 
 from datetime import datetime
 from soupsieve.util import lower
@@ -32,3 +33,6 @@ def generate_all_category_files(df):
         prefix = re.sub(" ", "_", lower(category_name))
         file_name = f'extract/by_category/{prefix}_{current_date}.csv'
         category.to_csv(file_name, index=False)
+
+def download_images(url, file_name):
+    urllib.request.urlretrieve(url, 'extract/images/' + file_name)

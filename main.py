@@ -2,8 +2,8 @@ import pandas as pd
 
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-from generate_csv_files import generate_file, generate_all_category_files
-from scraping import get_product_information, get_html
+from generate_file import generate_file, generate_all_category_files
+from scraping import get_product_information, get_content
 
 is_category = False
 is_all_product = False
@@ -27,7 +27,7 @@ while scrapped_url:
 
     if is_category or is_all_product:
 
-        html = get_html(scrapped_url)
+        html = get_content(scrapped_url)
         soup = BeautifulSoup(html, 'html.parser')
 
         books = soup.find_all('div', class_='image_container')
@@ -43,7 +43,7 @@ while scrapped_url:
             scrapped_url = None
 
     else:
-        html = get_html(scrapped_url)
+        html = get_content(scrapped_url)
         books_url.append(scrapped_url.split('../')[-1])
         scrapped_url = None
 
@@ -58,15 +58,15 @@ for book in books_url:
         if not url.__contains__('catalogue/'):
             url = urljoin(base_product_url+'catalogue/', book)
 
-    html = get_html(url)
+    html = get_content(url)
     data.append(get_product_information(html, url, base_product_url))
     i += 1
     print(f'Scraping...{i} of {len(books_url)}', end='\r', flush=True)
 
-
 if len(data) > 0:
     generate_file(data, is_category, is_all_product)
     print('\nSuccessfully saved CSV file')
+
 
 # export products by categories
 if is_all_product:

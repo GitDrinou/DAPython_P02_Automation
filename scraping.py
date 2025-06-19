@@ -1,9 +1,11 @@
 import re
-
 import requests
 from bs4 import BeautifulSoup
 
-def get_html(page_url):
+from generate_file import download_images
+
+
+def get_content(page_url):
     """Get html from url"""
     r = requests.get(page_url)
     if r.status_code == 200:
@@ -36,7 +38,7 @@ def get_product_information(html, url, base_url):
     for image in images:
         alternate_text = image.attrs['alt']
         if alternate_text is not None and alternate_text == title:
-            image_url = base_url + image['src'].split('../../')[-1]
+            image_url = image['src'].split('../../')[-1]
 
     book_info = {
         'product_page_url': url,
@@ -50,5 +52,8 @@ def get_product_information(html, url, base_url):
         'review_rating': get_fields('Number of reviews', 'th'),
         'image_url': image_url,
     }
+
+    # download image locally
+    download_images(f'{base_url}{image_url}', image_url.split('/')[-1])
 
     return book_info
