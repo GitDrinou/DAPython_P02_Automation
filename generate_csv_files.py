@@ -12,11 +12,11 @@ def generate_file(datalist, is_category=False, is_all_product=False):
                'number_available', 'product_description', 'category', 'review_rating', 'image_url']
 
     if is_category:
-        file_name = 'extract/extract_one_category_'+ current_date +'.csv'
+        file_name = f'extract/extract_one_category_{current_date}.csv'
     elif is_all_product:
         file_name = 'extract/extract_all_products.csv'
     else:
-        file_name = 'extract/extract_one_product_'+ current_date + '.csv'
+        file_name = f'extract/extract_one_product_{current_date}.csv'
 
     with open(file_name, 'w', newline='', encoding='utf-8') as file:
         writer = csv.DictWriter(file, delimiter=',',fieldnames=headers)

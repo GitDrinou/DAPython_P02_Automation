@@ -52,7 +52,6 @@ while scrapped_url:
 if is_category:
     base_product_url += 'catalogue/'
 
-
 for book in books_url:
     url = urljoin(base_product_url, book)
     if is_all_product:
@@ -60,10 +59,9 @@ for book in books_url:
             url = urljoin(base_product_url+'catalogue/', book)
 
     html = get_html(url)
-
-    print('*', end='', flush=True)
     data.append(get_product_information(html, url))
     i += 1
+    print(f'Scraping...{i} of {len(books_url)}', end='\r', flush=True)
 
 
 if len(data) > 0:
