@@ -1,9 +1,15 @@
 import re
 import requests
 from bs4 import BeautifulSoup
-
+from enum import Enum
 from generate_file import download_images
 
+class Rating(Enum):
+    ONE = 1
+    TWO = 2
+    THREE = 3
+    FOUR = 4
+    FIVE = 5
 
 def get_content(page_url):
     """Get html from url"""
@@ -18,12 +24,20 @@ def get_product_information(html, url, base_url, is_category = False):
     soup = BeautifulSoup(html, 'html.parser')
     soup.prettify()
 
-    def get_fields(name, tag='', is_id=False):
+    def get_fields(name, tag = '', is_id = False, is_rating = False):
         """Get the text for next sibling HTML element of selected tag or id"""
         if is_id:
             if soup.find(id=name) is not None:
                 return soup.find(id=name).find_next_sibling().string
             return ''
+        elif is_rating:
+            rating = soup.find(tag, class_=name).get('class')
+            value_rating = 0
+            if len(rating) > 1:
+                for enum in Rating:
+                    if enum.name == rating[1].upper():
+                        value_rating = enum.value
+            return value_rating
         else:
             return soup.find(tag, string=name).find_next_sibling().string
 
@@ -49,7 +63,7 @@ def get_product_information(html, url, base_url, is_category = False):
         'number_available': number_available,
         'product_description': get_fields('product_description', '', True),
         'category': category,
-        'review_rating': get_fields('Number of reviews', 'th'),
+        'review_rating': get_fields('star-rating', 'p', False,True),
         'image_url': image_url,
     }
 
