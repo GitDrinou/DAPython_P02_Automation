@@ -12,7 +12,10 @@ data = []
 i = 0
 
 # TODO: change to a Prompt user
-scrapped_url = 'https://books.toscrape.com/catalogue/the-long-shadow-of-small-ghosts-murder-and-memory-in-an-american-city_848/'
+scrapped_url = input('Enter the url to scrape: ')
+# all books : 'https://books.toscrape.com/index.html'
+# book : https://books.toscrape.com/catalogue/the-long-shadow-of-small-ghosts-murder-and-memory-in-an-american-city_848/index.html
+# category 32 books: https://books.toscrape.com/catalogue/category/books/mystery_3/index.html
 base_product_url = 'https://books.toscrape.com/'
 
 print('Loading...')
@@ -26,7 +29,6 @@ while scrapped_url:
                 break
 
     if is_category or is_all_product:
-
         html = get_content(scrapped_url)
         soup = BeautifulSoup(html, 'html.parser')
 
@@ -57,9 +59,8 @@ for book in books_url:
     if is_all_product:
         if not url.__contains__('catalogue/'):
             url = urljoin(base_product_url+'catalogue/', book)
-
     html = get_content(url)
-    data.append(get_product_information(html, url, base_product_url))
+    data.append(get_product_information(html, url, base_product_url, is_category))
     i += 1
     print(f'Scraping...{i} of {len(books_url)}', end='\r', flush=True)
 

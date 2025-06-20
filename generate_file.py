@@ -5,7 +5,8 @@ import urllib.request
 from datetime import datetime
 from soupsieve.util import lower
 
-current_date = datetime.now().strftime("%Y%m%d_%H%M%S")
+current_date_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+current_date = datetime.now().strftime("%Y%m%d")
 
 def generate_file(datalist, is_category=False, is_all_product=False):
 
@@ -13,11 +14,11 @@ def generate_file(datalist, is_category=False, is_all_product=False):
                'number_available', 'product_description', 'category', 'review_rating', 'image_url']
 
     if is_category:
-        file_name = f'extract/extract_one_category_{current_date}.csv'
+        file_name = f'extract/extract_one_category_{current_date_time}.csv'
     elif is_all_product:
         file_name = 'extract/extract_all_products.csv'
     else:
-        file_name = f'extract/extract_one_product_{current_date}.csv'
+        file_name = f'extract/extract_one_product_{current_date_time}.csv'
 
     with open(file_name, 'w', newline='', encoding='utf-8') as file:
         writer = csv.DictWriter(file, delimiter=',',fieldnames=headers)
@@ -31,7 +32,7 @@ def generate_all_category_files(df):
     for category_name in df['category'].unique():
         category = df[df['category'] == category_name]
         prefix = re.sub(" ", "_", lower(category_name))
-        file_name = f'extract/by_category/{prefix}_{current_date}.csv'
+        file_name = f'extract/by_category/{prefix}_{current_date_time}.csv'
         category.to_csv(file_name, index=False)
 
 def download_images(url, file_name):

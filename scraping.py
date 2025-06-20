@@ -13,7 +13,7 @@ def get_content(page_url):
     else:
         return print('Failed to scrap the page')
 
-def get_product_information(html, url, base_url):
+def get_product_information(html, url, base_url, is_category = False):
     """Generate a dictionary of product information."""
     soup = BeautifulSoup(html, 'html.parser')
     soup.prettify()
@@ -54,6 +54,7 @@ def get_product_information(html, url, base_url):
     }
 
     # download image locally
+    base_url = base_url.removesuffix('catalogue/')
     download_images(f'{base_url}{image_url}', image_url.split('/')[-1])
 
     return book_info
