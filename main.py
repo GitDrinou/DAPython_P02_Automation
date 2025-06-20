@@ -3,6 +3,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from generate_file import generate_file, generate_all_category_files
+from initialize import initialize
 from scraping import get_product_information, get_content
 
 is_category = False
@@ -11,11 +12,9 @@ books_url = []
 data = []
 i = 0
 
-# TODO: change to a Prompt user
+initialize()
+
 scrapped_url = input('Enter the url to scrape: ')
-# all books : 'https://books.toscrape.com/index.html'
-# book : https://books.toscrape.com/catalogue/the-long-shadow-of-small-ghosts-murder-and-memory-in-an-american-city_848/index.html
-# category 32 books: https://books.toscrape.com/catalogue/category/books/mystery_3/index.html
 base_product_url = 'https://books.toscrape.com/'
 
 print('Loading...')
@@ -64,10 +63,10 @@ for book in books_url:
     i += 1
     print(f'Scraping...{i} of {len(books_url)}', end='\r', flush=True)
 
+
 if len(data) > 0:
     generate_file(data, is_category, is_all_product)
     print('\nSuccessfully saved CSV file')
-
 
 # export products by categories
 if is_all_product:

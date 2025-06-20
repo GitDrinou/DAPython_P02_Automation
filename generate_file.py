@@ -1,4 +1,5 @@
 import csv
+import os
 import re
 import urllib.request
 
@@ -35,5 +36,7 @@ def generate_all_category_files(df):
         file_name = f'extract/by_category/{prefix}_{current_date_time}.csv'
         category.to_csv(file_name, index=False)
 
-def download_images(url, file_name):
-    urllib.request.urlretrieve(url, 'extract/images/' + file_name)
+def download_images(url, book_upc, book_category):
+    os.makedirs('extract/images/' + book_category + '/', exist_ok=True)
+    file_name = f'{book_upc}.jpg'
+    urllib.request.urlretrieve(url, 'extract/images/' + book_category + '/' + file_name )

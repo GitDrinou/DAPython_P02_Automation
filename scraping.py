@@ -41,6 +41,7 @@ def get_product_information(html, url, base_url, is_category = False):
         else:
             return soup.find(tag, string=name).find_next_sibling().string
 
+    upc = get_fields('UPC', 'th')
     title = soup.h1.string
     availability = get_fields('Availability', 'th')
     number_available = re.findall(r'\d+', availability)[0]
@@ -56,7 +57,7 @@ def get_product_information(html, url, base_url, is_category = False):
 
     book_info = {
         'product_page_url': url,
-        'universal_product_code': get_fields('UPC', 'th'),
+        'universal_product_code': upc,
         'title': title,
         'price_including_tax': get_fields('Price (incl. tax)', 'th'),
         'price_excluding_tax': get_fields('Price (excl. tax)', 'th'),
@@ -69,6 +70,6 @@ def get_product_information(html, url, base_url, is_category = False):
 
     # download image locally
     base_url = base_url.removesuffix('catalogue/')
-    download_images(f'{base_url}{image_url}', image_url.split('/')[-1])
+    download_images(f'{base_url}{image_url}', upc , category)
 
     return book_info
