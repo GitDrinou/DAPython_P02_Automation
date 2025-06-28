@@ -13,13 +13,20 @@ data = []
 i = 0
 
 initialize()
+message = "Bienvenue sur !'application SCRAPING BOOKS"
+instructions = "Instructions: lorsque vous saisirez (ou copiez) l'url, ne prenez pas en compte la page html."
+example = "Exemple: https://www.exemple.com/\n"
 
-scrapped_url = input('Enter the url to scrape: ')
+print(message)
+print(instructions)
+print(example)
+
+scrapped_url = input("C'est parti !\nEntrez l'url à scraper: ")
 base_product_url = 'https://books.toscrape.com/'
 
-print('Loading...')
+print('Chargement en cours...patientez')
 while scrapped_url:
-    if scrapped_url == 'https://books.toscrape.com':
+    if scrapped_url == base_product_url:
         is_all_product = True
     else:
         for item in scrapped_url.split('/'):
@@ -61,12 +68,12 @@ for book in books_url:
     html = get_content(url)
     data.append(get_product_information(html, url, base_product_url, is_category))
     i += 1
-    print(f'Scraping...{i} of {len(books_url)}', end='\r', flush=True)
+    print(f'Scraping...{i} sur {len(books_url)}', end='\r', flush=True)
 
 
 if len(data) > 0:
     generate_file(data, is_category, is_all_product)
-    print('\nSuccessfully saved CSV file')
+    print('\nLe(s) fichier(s) CSV a (ont) bien été généré(s)!')
 
 # export products by categories
 if is_all_product:
