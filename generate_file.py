@@ -28,7 +28,7 @@ def generate_file(datalist, is_category=False, is_all_product=False):
 
 def generate_all_category_files(df):
     if 'category' not in df.columns:
-        print('No category found')
+        print('Aucune catégorie trouvée')
 
     for category_name in df['category'].unique():
         category = df[df['category'] == category_name]

@@ -24,7 +24,7 @@ print(example)
 scrapped_url = input("C'est parti !\nEntrez l'url à scraper: ")
 base_product_url = 'https://books.toscrape.com/'
 
-print('Chargement en cours...patientez')
+print('Chargement en cours...veuillez patientez')
 while scrapped_url:
     if scrapped_url == base_product_url:
         is_all_product = True
@@ -73,7 +73,7 @@ for book in books_url:
 
 if len(data) > 0:
     generate_file(data, is_category, is_all_product)
-    print('\nLe(s) fichier(s) CSV a (ont) bien été généré(s)!')
+    print('\nTraitement terminé avec succès!')
 
 # export products by categories
 if is_all_product:
