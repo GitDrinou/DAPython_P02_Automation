@@ -4,10 +4,8 @@
 1.0.0 (bêta)
 
 ## Fonctionnalité
-Cette application va vous permettre de scraper un site web.
-
-Pour le développement de la version bêta, nous avons pris pour exemple le site  https://books.toscrape.com/ 
-
+Cette application va vous permettre de scraper un site web.  
+Pour le développement de la version bêta, nous avons pris pour exemple le site  https://books.toscrape.com/   
 L'automatisation vous permettra d'extraire dans des fichiers au format CSV les informations suivantes pour chaque produit :
 
 - product_page_url
@@ -22,11 +20,11 @@ L'automatisation vous permettra d'extraire dans des fichiers au format CSV les i
 - image_url
 
 ## Installation
-- Cloner ce projet
-- Créer un environnement virtuel exécutez les lignes suivantes dans votre terminal:
+1. Cloner le projet avec la commande: `git clone https://github.com/GitDrinou/DAPython_P02_Task_Task_Automation.git`
+2. Créer un environnement virtuel en exécutant les lignes suivantes dans votre terminal:
    - création: `python -m venv venv`
    - activation: `source venv/bin/activate`
-- Installer les packages nécessaires: `pip install -r requirements.txt`
+3. Installer les packages nécessaires: `pip install -r requirements.txt`
 
 ## Utilisation
 Une fois que vous avez installé tous les packages:
