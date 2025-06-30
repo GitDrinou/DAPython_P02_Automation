@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from generate_file import generate_file, generate_all_category_files
 from initialize import initialize
+from prompt import ask_url
 from scraping import get_product_information, get_content
 
 is_category = False
@@ -21,7 +22,7 @@ print(message)
 print(instructions)
 print(example)
 
-scrapped_url = input("C'est parti !\nEntrez l'url à scraper: ")
+scrapped_url = ask_url()
 base_product_url = 'https://books.toscrape.com/'
 
 print('Chargement en cours...veuillez patientez')
