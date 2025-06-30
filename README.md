@@ -35,7 +35,7 @@ Une fois que vous avez installé tous les packages:
 
 Exemple de terminal : 
 
-![screenshot_treatment.png](screenshot_treatment.png)
+![screenshot_treatment.jpg](screenshot_treatment.jpg)
 
 ### Dossiers d'extraction
 - dossier racine "**extract**", où vous trouverez
