@@ -1,4 +1,4 @@
-import csv
+import pandas as pd
 import os
 import re
 import urllib.request
@@ -21,10 +21,8 @@ def generate_file(datalist, is_category=False, is_all_product=False):
     else:
         file_name = f'extract/extract_one_product_{current_date_time}.csv'
 
-    with open(file_name, 'w', newline='', encoding='utf-8') as file:
-        writer = csv.DictWriter(file, delimiter=',',fieldnames=headers)
-        writer.writeheader()
-        writer.writerows(datalist)
+    df = pd.DataFrame(datalist, columns=headers)
+    df.to_csv(file_name, sep=',', header=True, index=False, encoding='utf-8')
 
 def generate_all_category_files(df):
     if 'category' not in df.columns:
