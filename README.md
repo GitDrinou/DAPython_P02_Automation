@@ -3,7 +3,7 @@
 # Version
 1.0.0 (bêta)
 
-## Fonctionnalité
+## Vue d'ensemble
 Cette application va vous permettre de scraper un site web.  
 Pour le développement de la version bêta, nous avons pris pour exemple le site  https://books.toscrape.com/   
 L'automatisation vous permettra d'extraire dans des fichiers au format CSV les informations suivantes pour chaque produit :
@@ -23,7 +23,9 @@ L'automatisation vous permettra d'extraire dans des fichiers au format CSV les i
 1. Cloner le projet avec la commande: `git clone https://github.com/GitDrinou/DAPython_P02_Task_Task_Automation.git`
 2. Créer un environnement virtuel en exécutant les lignes suivantes dans votre terminal:
    - création: `python -m venv venv`
-   - activation: `source venv/bin/activate`
+   - activation:
+      - MacOS: `source venv/bin/activate`
+      - Windows: `venv\Scripts\activate`
 3. Installer les packages nécessaires: `pip install -r requirements.txt`
 
 ## Utilisation
