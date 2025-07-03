@@ -19,7 +19,7 @@ def get_content(page_url):
     else:
         return print('Erreur: impossible de traiter la page.')
 
-def get_product_information(html, url, base_url, is_category = False):
+def get_product_information(html, url, base_url):
     """Generate a dictionary of product information."""
     soup = BeautifulSoup(html, 'html.parser')
     soup.prettify()
@@ -46,8 +46,8 @@ def get_product_information(html, url, base_url, is_category = False):
     price_with_tax = get_fields('Price (incl. tax)', 'th')
     price_without_tax = get_fields('Price (excl. tax)', 'th')
     availability = get_fields('Availability', 'th')
-    price_amount_with_tax = re.findall(r'\d+', price_with_tax)[0]
-    price_amount_without_tax = re.findall(r'\d+', price_without_tax)[0]
+    price_amount_with_tax = f"£{float(price_with_tax[1:]):,.2f}"
+    price_amount_without_tax = f"£{float(price_without_tax[1:]):,.2f}"
     number_available = re.findall(r'\d+', availability)[0]
     links = soup.find('ul', class_='breadcrumb').find_all('li')
     category = links[-2].find('a').string
@@ -69,7 +69,7 @@ def get_product_information(html, url, base_url, is_category = False):
         'product_description': get_fields('product_description', '', True),
         'category': category,
         'review_rating': get_fields('star-rating', 'p', False,True),
-        'image_url': image_url,
+        'image_url': base_url + image_url,
     }
 
     # download image locally

@@ -67,7 +67,7 @@ for book in books_url:
         if not url.__contains__('catalogue/'):
             url = urljoin(base_product_url+'catalogue/', book)
     html = get_content(url)
-    data.append(get_product_information(html, url, base_product_url, is_category))
+    data.append(get_product_information(html, url, base_product_url))
     i += 1
     print(f'Scraping...{i} sur {len(books_url)}', end='\r', flush=True)
 
