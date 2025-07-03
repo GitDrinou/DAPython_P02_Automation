@@ -43,7 +43,11 @@ def get_product_information(html, url, base_url, is_category = False):
 
     upc = get_fields('UPC', 'th')
     title = soup.h1.string
+    price_with_tax = get_fields('Price (incl. tax)', 'th')
+    price_without_tax = get_fields('Price (excl. tax)', 'th')
     availability = get_fields('Availability', 'th')
+    price_amount_with_tax = re.findall(r'\d+', price_with_tax)[0]
+    price_amount_without_tax = re.findall(r'\d+', price_without_tax)[0]
     number_available = re.findall(r'\d+', availability)[0]
     links = soup.find('ul', class_='breadcrumb').find_all('li')
     category = links[-2].find('a').string
@@ -59,8 +63,8 @@ def get_product_information(html, url, base_url, is_category = False):
         'product_page_url': url,
         'universal_product_code': upc,
         'title': title,
-        'price_including_tax': get_fields('Price (incl. tax)', 'th'),
-        'price_excluding_tax': get_fields('Price (excl. tax)', 'th'),
+        'price_including_tax': price_amount_with_tax,
+        'price_excluding_tax': price_amount_without_tax,
         'number_available': number_available,
         'product_description': get_fields('product_description', '', True),
         'category': category,
