@@ -22,6 +22,7 @@ L'automatisation vous permettra d'extraire dans des fichiers au format CSV les i
 ## Installation
 1. Cloner le projet avec la commande: `git clone https://github.com/GitDrinou/DAPython_P02_Task_Task_Automation.git`
 2. Créer un environnement virtuel en exécutant les lignes suivantes dans votre terminal:
+   - vérifier si vous avez accès à `venv`: `python -m venv --help`
    - création: `python -m venv venv`
    - activation:
       - MacOS: `source venv/bin/activate`
