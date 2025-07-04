@@ -1,12 +1,12 @@
 # SCRAPING BOOKS 
 
 # Version
-1.0.0 (bêta)
+1.0.0 (beta)
 
-## Vue d'ensemble
-Cette application va vous permettre de scraper un site web.  
-Pour le développement de la version bêta, nous avons pris pour exemple le site  https://books.toscrape.com/   
-L'automatisation vous permettra d'extraire dans des fichiers au format CSV les informations suivantes pour chaque produit :
+## Overview
+This application allows you to scrap a website.  
+For the development of the beta version, we used the site https://books.toscrape.com/   
+Automation will enable you to extract the following information for each product into CSV files :
 
 - product_page_url
 - universal_ product_code (upc)
@@ -20,32 +20,33 @@ L'automatisation vous permettra d'extraire dans des fichiers au format CSV les i
 - image_url
 
 ## Installation
-1. Cloner le projet avec la commande: `git clone https://github.com/GitDrinou/DAPython_P02_Task_Task_Automation.git`
-2. Créer un environnement virtuel en exécutant les lignes suivantes dans votre terminal:
-   - vérifier si vous avez accès à `venv`: `python -m venv --help`
-   - création: `python -m venv venv`
-   - activation:
-      - MacOS: `source venv/bin/activate`
-      - Windows: `venv\Scripts\activate`
-3. Installer les packages nécessaires: `pip install -r requirements.txt`
+1. Clone the project with the command: `git clone https://github.com/GitDrinou/DAPython_P02_Task_Task_Automation.git`
+2. Create a virtual environment by running the following lines in your terminal:
+   - check if you have access to `venv`: `python -m venv --help`
+   - create the environment: `python -m venv venv`
+   - activate the environment:
+      - for MacOS: `source venv/bin/activate`
+      - for Windows: `venv\Scripts\activate`
+3. Install the required packages: `pip install -r requirements.txt`
 
-## Utilisation
-Une fois que vous avez installé tous les packages:
-- exécutez la ligne de commande suivante: `python main.py` 
-- suivez les instructions qui sont affichées dans votre terminal.
+## Usage
+Once you have installed all the packages:
+- run the following command: `python main.py` 
+- follow the instructions displayed in your terminal.
 
-Exemple de terminal : 
+Example terminal output : 
 
 ![screenshot_treatment.jpg](screenshot_treatment.jpg)
 
-### Dossiers d'extraction
-- dossier racine "**extract**", où vous trouverez
-   - un fichier CSV pour un produit
-   - un fichier CSV pour une catégorie de produits
-   - un fichier CSV pour tous les produits
-- dossier "**by_category**", où vous trouverez tous les fichiers CSV par catégorie
-- dossier "**images**", où vous trouverez toutes les images par catégorie, nommées avec leur UPC.
-Exemple de résultat à la fin du traitement:
+### Extractions folders
+- root folder "**extract**", where you will find:
+   - a CSV file for a single product
+   - a CSV file for a product category
+   - a CSV file for all products
+- folder "**by_category**", where you will find all CSV files by category
+- folder "**images**", where you will find all images by category, named with the UPC.
+
+Example of the result at the end of the process:
 
 ![screenshot_extract.jpg](screenshot_extract.jpg)
 
