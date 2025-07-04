@@ -14,9 +14,9 @@ data = []
 i = 0
 
 initialize()
-message = "Bienvenue sur !'application SCRAPING BOOKS"
-instructions = "Instructions: lorsque vous saisirez (ou copiez) l'url, ne prenez pas en compte la page html."
-example = "Exemple: https://www.exemple.com/\n"
+message = "Welcome to the SCRAPING BOOKS app"
+instructions = "Instructions: enter the URL you want to scrape."
+example = "Example: https://www.example.com/page.html\n"
 
 print(message)
 print(instructions)
@@ -25,7 +25,7 @@ print(example)
 scrapped_url = ask_url()
 base_product_url = 'https://books.toscrape.com/'
 
-print('Chargement en cours...veuillez patientez')
+print('Loading...please wait')
 while scrapped_url:
     if scrapped_url == base_product_url:
         is_all_product = True
@@ -69,12 +69,12 @@ for book in books_url:
     html = get_content(url)
     data.append(get_product_information(html, url, base_product_url))
     i += 1
-    print(f'Scraping...{i} sur {len(books_url)}', end='\r', flush=True)
+    print(f'Scraping...{i} of {len(books_url)} book(s)', end='\r', flush=True)
 
 
 if len(data) > 0:
     generate_file(data, is_category, is_all_product)
-    print('\nTraitement terminé avec succès!')
+    print('\nProcessing completed successfully.')
 
 # export products by categories
 if is_all_product:

@@ -17,7 +17,7 @@ def get_content(page_url):
     if r.status_code == 200:
          return r.content
     else:
-        return print('Erreur: impossible de traiter la page.')
+        return print('Error: Unable to process the page.')
 
 def get_product_information(html, url, base_url):
     """Generate a dictionary of product information."""
