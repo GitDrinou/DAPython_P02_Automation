@@ -4,14 +4,6 @@ from bs4 import BeautifulSoup
 from enum import Enum
 from generate_file import download_images
 
-class Rating(Enum):
-    ONE = 1
-    TWO = 2
-    THREE = 3
-    FOUR = 4
-    FIVE = 5
-
-
 def get_content(page_url):
     """Get html from url"""
     r = requests.get(page_url)
@@ -22,11 +14,18 @@ def get_content(page_url):
 
 def get_rating(rating):
     """Get the rating value from a class name"""
+    ratings = {
+        'ONE': 1,
+        'TWO': 2,
+        'THREE': 3,
+        'FOUR': 4,
+        'FIVE': 5
+    }
     value_rating = 0
     if len(rating) > 1:
-        for enum in Rating:
-            if enum.name == rating[1].upper():
-                value_rating = enum.value
+        for item in ratings:
+            if item == rating[1].upper():
+                value_rating = ratings[item]
     return value_rating
 
 def get_product_information(html, url, base_url):
