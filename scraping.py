@@ -1,7 +1,6 @@
 import re
 import requests
 from bs4 import BeautifulSoup
-from enum import Enum
 from generate_file import download_images
 
 def get_content(page_url):
