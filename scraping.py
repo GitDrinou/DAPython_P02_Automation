@@ -40,6 +40,13 @@ def get_product_information(html, url, base_url):
     price_amount_with_tax = f"£{float(price_with_tax[1:]):,.2f}"
     price_amount_without_tax = f"£{float(price_without_tax[1:]):,.2f}"
     number_available = re.findall(r'\d+', availability)[0]
+    description = soup.find(id='product_description')
+    product_description = ''
+    if description is not None:
+        product_description = description.find_next_sibling().string
+    else:
+        product_description = ''
+
     links = soup.find('ul', class_='breadcrumb').find_all('li')
     category = links[-2].find('a').string
 
@@ -60,7 +67,7 @@ def get_product_information(html, url, base_url):
         'price_including_tax': price_amount_with_tax,
         'price_excluding_tax': price_amount_without_tax,
         'number_available': number_available,
-        'product_description': soup.find(id='product_description').find_next_sibling().string,
+        'product_description': product_description,
         'category': category,
         'review_rating': get_rating(rating),
         'image_url': base_url + image_url,

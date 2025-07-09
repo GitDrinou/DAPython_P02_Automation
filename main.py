@@ -56,14 +56,9 @@ while scrapped_url:
         books_url.append(scrapped_url.split('../')[-1])
         scrapped_url = None
 
-
-# Get all product information
-if is_category:
-    base_product_url += 'catalogue/'
-
 for book in books_url:
     url = urljoin(base_product_url, book)
-    if is_all_product:
+    if is_all_product or is_category:
         if not url.__contains__('catalogue/'):
             url = urljoin(base_product_url+'catalogue/', book)
     html = get_content(url)
